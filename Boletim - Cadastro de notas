@@ -1,0 +1,50 @@
+#Cadastrar notas de alunos
+
+def situacao(nota):
+  if nota >= 7:
+    return "Aprovado"
+  elif nota < 5:
+    return "Reprovado"
+  else:
+    return "Recuperação"
+
+#----------- MENU -----------
+boletim = []
+while True:
+  print("\n ===== Boletim de Alunos =====")
+  print("1 - Cadastrar Nota")
+  print("2 - Listar Boletim")
+  print("3 - Sair")
+  try:
+    opcao = int(input("Escolha uma opção do menu: "))
+
+    if opcao == 1:
+        name = input("Digite o nome: ")
+        while True:
+          try:
+            nota = float(input("Digite a nota: "))
+            if 0 <= nota <= 10: 
+              sit = situacao(nota)
+              boletim.append([name,nota,sit])
+              break
+            else: 
+              print("Digite uma nota entre 0 e 10")
+          
+          except ValueError:
+            print("Digite um valor válido para a nota")
+    
+    elif opcao == 2:
+      if not boletim:
+        print("Nenhuma nota cadastrada")
+      else:
+        for posicao, aluno in enumerate(boletim,start=1):
+          print(f"{posicao} - {aluno[0]} - Nota: {aluno[1]:.1f} - {aluno[2]}")
+
+    elif opcao == 3:
+      print("Programa Encerrado")
+      break
+
+    else:
+      print("Erro: escolha uma opção entre 1 e 3")
+  except ValueError:
+    print("Erro: digite um número válido no menu")
