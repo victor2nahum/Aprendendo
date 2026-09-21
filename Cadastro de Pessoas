@@ -1,0 +1,37 @@
+#Cadastro de Pessoas
+
+#-------------------- MENU --------------------
+
+people = []
+while True:
+	print("\n===== CADASTRO DE PESSOAS =====")
+	print("1 - Cadastrar Pessoas")
+	print("2 - Listar Pessoas")
+	print("3 - Sair")
+	try:
+		opcao = int(input("Escolha uma opção do menu: "))
+		if opcao == 1:
+			try:
+				name = input("Digite o nome: ")
+				age = int(input("Digite a idade: "))
+				people.append([name,age])
+			except ValueError:
+				print("Digite uma idade válida")	
+		elif opcao == 2:
+			if not people:
+				print("Nenhum pessoa cadastrada")
+
+			else:
+				for posicao,pessoa in enumerate(people,start=1):
+        				print(f"{posicao} - {pessoa[0]} - {pessoa[1]} anos")
+
+# obs: aqui criamos pessoa, que é um individuo dentro da lista people. Quando fazemos "pessoa[0]" estamos buscando a primeira informação desse indivíduo, no caso, o nome. Em "pessoa[1]" estamos buscando a segunda informação do indivíduo, no caso, a idade.
+# obs: for posicao,pessoa in enumerate. aqui criamos duas variaveis, posicao (que vai ser a listagem iniciando em 1 (start=1) e pessoa que vai ser o individuo dentro da lista que tem as duas variaveis citadas na primeira obs.
+
+		elif opcao == 3:
+			print("Programa Encerrado")
+			break
+		else:
+			print("Erro: escolha uma opção entre 1 e 3")
+	except ValueError:
+		print("Erro: digite um número válido no menu")
