@@ -1,0 +1,48 @@
+#Calculadora
+
+while True:
+	try:
+		a = float(input("Digite o primeiro número: "))
+		break
+	except ValueError:
+		print("Digite um número")
+
+while True:
+	op = input("Digite a operação: ")
+	if op=="+":
+		break
+	elif op=="-":
+		break
+	elif op=="*":
+		break
+	elif op=="/":
+		break
+	else:
+		print("Erro: Digite uma operação válida")
+
+while True:
+	try:
+		b = float(input("Digite o segundo número: "))
+		break
+	except ValueError:
+		print("Digite um número")
+
+if op=="+":
+	c = a+b
+elif op=="-":
+	c = a-b
+elif op=="*":
+	c = a*b
+elif op=="/":
+	while True:
+		try:
+			if b != 0:
+				break
+			else:
+				print("Não podemos dividir por zero")
+				b = float(input("Digite outro denominador"))
+		except ValueError:
+			print("Digite um número")
+	c = a/b
+
+print(f"Resultado: {a}{op}{b} = {c}")
