@@ -7,7 +7,11 @@ while True:
   print("\n ===== ESTOQUE DE PRODUTOS =====")
   print("1 - Cadastrar Produtos")
   print("2 - Listar Produtos")
-  print("3 - Sair")
+  print("3 - Ranking de Preços")
+  print("4 - Valor Total do Estoque")
+  print("5 - Ver Produtos com Estoque Baixo")
+  print("6 - Buscar Produto")
+  print("7 - Sair")
   try:
     opcao = int(input("Escolha a opção: "))
 
@@ -46,6 +50,75 @@ while True:
           )
 
     elif opcao == 3:
+      if not produtos:
+        print("Nenhum produto cadastrado")
+
+      else:
+        menor = min(produtos, key=lambda x: x["Preço"])
+        print(f"Produto mais barato: {menor['Nome']} - R$ {menor['Preço']:.2f}")
+        maior = max(produtos, key=lambda x: x["Preço"])
+        print(f"Produto mais caro: {maior['Nome']} - R$ {maior['Preço']:.2f}")
+
+      print("\n ===== RANKING DE PREÇOS =====")
+      ranking = sorted(produtos, key=lambda x: x["Preço"], reverse = True)
+      for posicao, item in enumerate(ranking, start=1):
+        print(
+              f"{posicao} - ",
+              f"Nome: {item['Nome']}",
+              f"Preço: R$ {item['Preço']:.2f}"
+          )
+
+    elif opcao == 4:
+      if not produtos:
+        print("Nenhum produto cadastrado")
+
+      else:
+        total_value = Decimal("0")
+
+        for product in produtos:
+          item_value = product["Preço"])
+          item_qntd = product["Quantidade"]
+
+          total_value += (item_value * item_qntd)
+
+        print(f"Valor total do estoque: R$ {total_value:.2f}")
+
+
+    elif opcao == 5:
+      low_inventory = 0
+      if not produtos:
+        print("Nenhum produto cadastrado")
+
+      else:
+        limit = int(input("Digite o limite de estoque: "))
+        print("\n ===== Produtos com Estoque Baixo =====")
+
+        for posicao, product in enumerate(produtos, start=1):
+          if product["Quantidade"] <= limit:
+            low_inventory += 1
+            print(f"{posicao} - Produto: {product['Nome']} - Estoque: {product['Quantidade']} unidades")
+        print(f"Total de produtos com estoque baixo: {low_inventory}")
+
+
+    elif opcao == 6:
+
+      if not produtos:
+        print("Nenhum produto cadastrado")
+
+      else:
+        search_name = input("Digite o nome do produto: ")
+        encontrado = False
+
+        for product in produtos:
+          if search_name.lower() == product["Nome"].lower():
+            encontrado = True
+            print(f"Produto Encontrado --> Nome:{product['Nome']} - Preço: R$ {product['Preço']} - Quantidade: {product['Quantidade']} - Categoria: {product['Categoria']}")
+
+        if not encontrado:
+          print("Produto não encontrado")
+
+
+    elif opcao == 7:
       print("Programa encerrado")
       break
 
