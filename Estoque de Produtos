@@ -1,0 +1,56 @@
+#Estoque de produtos
+
+from decimal import Decimal
+produtos = []
+
+while True:
+  print("\n ===== ESTOQUE DE PRODUTOS =====")
+  print("1 - Cadastrar Produtos")
+  print("2 - Listar Produtos")
+  print("3 - Sair")
+  try:
+    opcao = int(input("Escolha a opção: "))
+
+    if opcao == 1:
+      print("Voce escolheu cadastrar produto")
+
+      name = input("Digite o nome do produto: ")
+      value = Decimal(input("Digite o preço do produto: "))
+      qntd = int(input("Digite a quantidade em estoque: "))
+      category = input("Digite a categoria: ")
+
+      product = {
+        "Nome": name,
+        "Preço": value,
+        "Quantidade": qntd,
+        "Categoria": category
+      }
+
+      produtos.append(product)
+
+    elif opcao == 2:
+      print("Voce escolheu listar produtos")
+
+      if not produtos:
+        print("Nenhum produto cadastrado")
+      
+      else:
+        print("\n===== PRODUTOS CADASTRADOS =====")
+        for posicao,product in enumerate(produtos, start=1):
+          print(
+            f"Posição: {posicao}",
+            f"Nome: {product['Nome']}",
+            f"Preço: R$ {product['Preço']:.2f}",
+            f"Quantidade: {product['Quantidade']}",
+            f"Categoria: {product['Categoria']}"
+          )
+
+    elif opcao == 3:
+      print("Programa encerrado")
+      break
+
+    else: 
+      print("Erro: escolha uma opção entre 1 e 3")
+
+  except ValueError:
+    print("Erro: digite um número válido no menu")
