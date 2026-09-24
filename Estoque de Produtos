@@ -12,7 +12,8 @@ while True:
   print("5 - Ver Produtos com Estoque Baixo")
   print("6 - Buscar Produto")
   print("7 - Atualizar Produto")
-  print("7 - Sair")
+  print("8 - Excluir Produto")
+  print("9 - Sair")
   try:
     opcao = int(input("Escolha a opção: "))
 
@@ -124,22 +125,105 @@ while True:
         print("Nenhum produto cadastrado")
 
       else:
-        encontrado = False
-        update = input("Digite o nome do produto que deseja atualizar:")
+        update = input("Digite o nome do produto que deseja atualizar: ")
+        resultados = []
 
         for product in produtos:
           if update.lower() in product["Nome"].lower():
-            encontrado = True
             print(f"Produto Encontrado --> Nome:{product['Nome']} - Preço: R$ {product['Preço']} - Quantidade: {product['Quantidade']} - Categoria: {product['Categoria']}")
+            resultados.append(product)
 
-            value = Decimal(input("Digite o novo preço: "))
-            product["Preço"] = value
-            qntd = int(input("Digite a nova quantidade: "))
-            product["Quantidade"] = qntd
+        print(f"Produtos encontrados: {len(resultados)}")
+        for posicao, product_res in enumerate(resultados, start=1):
+          print(f"{posicao} - {product_res['Nome']}")
 
-            
+        if not resultados:
+          print("Produto não encontrado")
+
+        else:
+          while True:
+            try:
+              mudar_res = int(input("Digite o número do produto que deseja atualizar: "))
+              indice = mudar_res - 1
+              if indice < 0:
+                print("Erro: digite um número do índice")
+
+              elif indice > (len(resultados)-1):
+                print("Erro: digite um número do índice")
+
+              else:
+                produto_escolhido = resultados[indice]
+                print(f"Você escolheu: {produto_escolhido['Nome']}")
+                break
+
+            except ValueError:
+              print("Erro: Digite um número válido")
+
+      
+          newvalue = Decimal(input("Digite o novo preço: "))
+          produto_escolhido["Preço"] = newvalue
+          newqntd = int(input("Digite a nova quantidade: "))
+          produto_escolhido["Quantidade"] = newqntd
+          newcategory = input("Digite a nova categoria: ")
+          produto_escolhido["Categoria"] = newcategory
+
+          print("Todas as alterações foram cadastradas")
 
     elif opcao == 8:
+
+      if not produtos:
+        print("Nenhum produto cadastrado")
+
+      else:
+        delete = input("Digite o nome do produto que deseja excluir: ")
+        excluidos = []
+
+        for product in produtos:
+          if delete.lower() in product["Nome"].lower():
+            print(f"Produto Encontrado --> Nome:{product['Nome']} - Preço: R$ {product['Preço']} - Quantidade: {product['Quantidade']} - Categoria: {product['Categoria']}")
+            excluidos.append(product)
+
+        print(f"Produtos encontrados: {len(excluidos)}")
+        for posicao, product_res in enumerate(excluidos, start=1):
+          print(f"{posicao} - {product_res['Nome']}")
+
+        if not excluidos:
+          print("Produto não encontrado")
+
+        else:
+          while True:
+            try:
+              exclude_res = int(input("Digite o número do produto que deseja excluir: "))
+              indice_exc = exclude_res - 1
+              if indice_exc < 0:
+                print("Erro: digite um número do índice")
+
+              elif indice_exc > (len(excluidos)-1):
+                print("Erro: digite um número do índice")
+
+              else:
+                produto_excluido = excluidos[indice_exc]
+                print(f"Você escolheu: {produto_excluido['Nome']}")
+                confirm = input("Confirma? Digite sim para excluir e não para retornar") 
+
+                if confirm.lower() == "sim":
+                  produtos.remove(produto_excluido)
+                  print("Produto excluído com sucesso")
+                  break
+
+                elif confirm.lower() == "não":
+                  print("Retornando ao menu")
+                  break
+
+                else: 
+                  print("Digite sim ou não")
+                
+            except ValueError:
+              print("Erro: Digite um número válido")
+
+
+
+    elif opcao == 9:
       print("Programa encerrado")
       break
 
