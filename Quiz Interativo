@@ -1,0 +1,14 @@
+#Jogo Quiz Interativo
+
+perguntas = []
+
+pergunta = "Qual a capital da Austrália"
+alternativa_a = "A - Sydney"
+alternativa_b = "B - Melbourne"
+alternativa_c = "C - Canberra"
+alternativa_d = "D - Perth"
+resposta = "C - Canberra"
+
+print("\n===== PERGUNTA =====")
+print("Qual a capital da Austrália?")
+print("Alternativas: A - Sydney B - Melbourne C - Canberra D - Perth")
