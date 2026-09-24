@@ -1,14 +1,56 @@
 #Jogo Quiz Interativo
 
 perguntas = []
+pontuacao = 0
 
-pergunta = "Qual a capital da Austrália"
+pergunta = "Qual a capital da Austrália?"
 alternativa_a = "A - Sydney"
 alternativa_b = "B - Melbourne"
 alternativa_c = "C - Canberra"
 alternativa_d = "D - Perth"
-resposta = "C - Canberra"
+resposta = "C"
+
+quiz = {
+        "Pergunta": pergunta,
+        "A": alternativa_a,
+        "B": alternativa_b,
+        "C": alternativa_c,
+        "D": alternativa_d,
+        "Resposta": resposta
+      }
+
+perguntas.append(quiz)
 
 print("\n===== PERGUNTA =====")
-print("Qual a capital da Austrália?")
-print("Alternativas: A - Sydney B - Melbourne C - Canberra D - Perth")
+print(perguntas[0]["Pergunta"])
+
+print("\n===== Alternativas =====")
+print(perguntas[0]["A"])
+print(perguntas[0]["B"])
+print(perguntas[0]["C"])
+print(perguntas[0]["D"])
+
+while True:
+  resp = input("Digite sua resposta: ")
+  if resp == "A":
+    print(f"Você escolheu: {perguntas[0]['A']}")
+    break
+  elif resp == "B":
+    print(f"Você escolheu: {perguntas[0]['B']}")
+    break
+  elif resp == "C":
+    print(f"Você escolheu: {perguntas[0]['C']}")
+    break
+  elif resp == "D":
+    print(f"Você escolheu: {perguntas[0]['D']}")
+    break
+  else:
+    print("Digite uma opçao válida")
+
+if resp == resposta:
+  print("Certa Resposta")
+  pontuacao += 1
+
+else:
+  print("Resposta Errada")
+
