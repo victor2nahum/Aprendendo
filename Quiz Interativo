@@ -1,16 +1,19 @@
 #Jogo Quiz Interativo
 
-perguntas = []
-pontuacao = 0
+def cadastrar_pergunta():
+ pergunta = input("Digite a pergunta: ")
+ alternativa_a = "A - "+input("Digite a alternativa A: ")
+ alternativa_b = "B - "+input("Digite a alternativa B: ")
+ alternativa_c = "C - "+input("Digite a alternativa C: ")
+ alternativa_d = "D - "+input("Digite a alternativa D: ")
+ while True:
+  resposta = input("Digite a alternativa correta: ")
+  if resposta in ["A", "B", "C", "D"]:
+   break
+  else:
+   print("Digite uma alternativa válida")
 
-pergunta = "Qual a capital da Austrália?"
-alternativa_a = "A - Sydney"
-alternativa_b = "B - Melbourne"
-alternativa_c = "C - Canberra"
-alternativa_d = "D - Perth"
-resposta = "C"
-
-quiz = {
+ quiz = {
         "Pergunta": pergunta,
         "A": alternativa_a,
         "B": alternativa_b,
@@ -19,38 +22,45 @@ quiz = {
         "Resposta": resposta
       }
 
-perguntas.append(quiz)
+ return quiz
 
-print("\n===== PERGUNTA =====")
-print(perguntas[0]["Pergunta"])
-
-print("\n===== Alternativas =====")
-print(perguntas[0]["A"])
-print(perguntas[0]["B"])
-print(perguntas[0]["C"])
-print(perguntas[0]["D"])
+perguntas = []
+pontuacao = 0
 
 while True:
-  resp = input("Digite sua resposta: ")
-  if resp == "A":
-    print(f"Você escolheu: {perguntas[0]['A']}")
-    break
-  elif resp == "B":
-    print(f"Você escolheu: {perguntas[0]['B']}")
-    break
-  elif resp == "C":
-    print(f"Você escolheu: {perguntas[0]['C']}")
-    break
-  elif resp == "D":
-    print(f"Você escolheu: {perguntas[0]['D']}")
-    break
-  else:
-    print("Digite uma opçao válida")
+ quiz = cadastrar_pergunta()
+ perguntas.append(quiz)
 
-if resp == resposta:
-  print("Certa Resposta")
-  pontuacao += 1
+ seguir = input("Deseja cadastrar uma nova pergunta? S/N:")
+ if seguir == "N":
+  break
 
-else:
-  print("Resposta Errada")
+for posicao, quiz in enumerate (perguntas, start=1):
+        print(f"\n===== PERGUNTA {posicao} DE {len(perguntas)} =====")
+        print(quiz["Pergunta"])
 
+        print("\n===== Alternativas =====")
+        print(quiz["A"])
+        print(quiz["B"])
+        print(quiz["C"])
+        print(quiz["D"])
+
+        while True:
+          resp = input("Digite sua resposta: ").upper()
+          if resp in ["A", "B", "C", "D"]:
+            print(f"Você escolheu: {quiz[resp]}")
+            break
+          else:
+            print("Digite uma opçao válida")
+
+        if resp == quiz["Resposta"]:
+          print("Certa Resposta")
+          pontuacao += 1
+
+        else:
+          print("Resposta Errada")
+
+print("\n ==== RESULTADO ====")
+print(f"Você acertou {pontuacao} de {len(perguntas)} perguntas!")
+percentual = 100* (pontuacao/len(perguntas))
+print(f"Você acertou {percentual:.0f}%")
