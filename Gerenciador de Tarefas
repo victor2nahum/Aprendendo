@@ -13,25 +13,42 @@ while True:
   menu = int(input("Digite a opção do menu: "))
   if menu == 1:
     add = input("Digite uma tarefa: ")
-    tarefas.append(add)
+    item = {
+            "Tarefa": add,
+            "Status": "Pendente"
+            }
+    tarefas.append(item)
 
     while True:
       confirm = input("Deseja digitar nova tarefa? S/N?").upper()
 
       if confirm == "S":
         add_new = input("Digite outra tarefa: ")
-        tarefas.append(add_new)
+        item = {
+                "Tarefa": add_new,
+                "Status": "Pendente"
+                }
+        tarefas.append(item)
       elif confirm == "N":
         break
       else:
         print("Digite S ou N")
 
   elif menu == 2:
-    print("\n ===== TAREFAS =====")
-    for item in tarefas:
-      print(item)
+    print("\n ===== LISTA DE TAREFAS =====")
+    for posicao, item in enumerate (tarefas, start=1):
+      print(f"{posicao} - Tarefa: {item['Tarefa']}")
+      print(f"Status: {item['Status']}")
 
   elif menu == 3:
+    print("\n ===== ATUALIZAR STATUS =====")
+    for posicao, item in enumerate (tarefas, start=1):
+      print(f"{posicao} - Tarefa: {item['Tarefa']}")
+      print(f"Status: {item['Status']}")
+
+    op = input("Escolha o número da tarefa que quer atualizar: ")-1
+    
+
 
   elif menu == 4:
 
