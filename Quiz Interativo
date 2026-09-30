@@ -1,5 +1,7 @@
 #Jogo Quiz Interativo
 
+# ------- Funções --------
+
 def cadastrar_pergunta():
  pergunta = input("Digite a pergunta: ")
  alternativa_a = "A - "+input("Digite a alternativa A: ")
@@ -7,7 +9,7 @@ def cadastrar_pergunta():
  alternativa_c = "C - "+input("Digite a alternativa C: ")
  alternativa_d = "D - "+input("Digite a alternativa D: ")
  while True:
-  resposta = input("Digite a alternativa correta: ")
+  resposta = input("Digite a alternativa correta: ").upper()
   if resposta in ["A", "B", "C", "D"]:
    break
   else:
@@ -24,6 +26,35 @@ def cadastrar_pergunta():
 
  return quiz
 
+def aplicar_pergunta(posicao, quiz):
+
+ print(f"\n===== PERGUNTA {posicao} DE {len(perguntas)} =====")
+ print(quiz["Pergunta"])
+
+ print("\n===== Alternativas =====")
+ print(quiz["A"])
+ print(quiz["B"])
+ print(quiz["C"])
+ print(quiz["D"])
+
+ while True:
+  resp = input("Digite sua resposta: ").upper()
+  if resp in ["A", "B", "C", "D"]:
+   print(f"Você escolheu: {quiz[resp]}")
+   break
+  else:
+   print("Digite uma opçao válida")
+
+ if resp == quiz["Resposta"]:
+  print("Certa Resposta")
+  return True
+
+ else:
+  print("Resposta Errada")
+  return False
+
+# ----- Programação ------
+
 perguntas = []
 pontuacao = 0
 
@@ -36,29 +67,11 @@ while True:
   break
 
 for posicao, quiz in enumerate (perguntas, start=1):
-        print(f"\n===== PERGUNTA {posicao} DE {len(perguntas)} =====")
-        print(quiz["Pergunta"])
+ resultado = aplicar_pergunta(posicao, quiz)
+ if resultado:
+   pontuacao += 1
 
-        print("\n===== Alternativas =====")
-        print(quiz["A"])
-        print(quiz["B"])
-        print(quiz["C"])
-        print(quiz["D"])
-
-        while True:
-          resp = input("Digite sua resposta: ").upper()
-          if resp in ["A", "B", "C", "D"]:
-            print(f"Você escolheu: {quiz[resp]}")
-            break
-          else:
-            print("Digite uma opçao válida")
-
-        if resp == quiz["Resposta"]:
-          print("Certa Resposta")
-          pontuacao += 1
-
-        else:
-          print("Resposta Errada")
+# ------- Resultado -------
 
 print("\n ==== RESULTADO ====")
 print(f"Você acertou {pontuacao} de {len(perguntas)} perguntas!")
