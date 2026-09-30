@@ -46,8 +46,30 @@ while True:
       print(f"{posicao} - Tarefa: {item['Tarefa']}")
       print(f"Status: {item['Status']}")
 
-    op = input("Escolha o número da tarefa que quer atualizar: ")-1
-    
+    while True:
+      try:
+        op = int(input("Escolha o número da tarefa que quer atualizar: "))
+        indice = op - 1
+
+        if indice < 0:
+          print("Erro: digite um número do índice")
+
+        elif indice > (len(tarefas)-1):
+          print("Erro: digite um número do índice")
+
+        else:
+          item_escolhido = tarefas[indice]
+          print(f"Você escolheu: {item_escolhido['Tarefa']}")
+          new_status = "Concluído"
+          item_escolhido["Status"] = new_status
+          print("Alteração cadastrada")
+          break
+
+      except ValueError:
+       print("Erro: Digite um número válido")
+
+      
+
 
 
   elif menu == 4:
