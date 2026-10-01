@@ -19,5 +19,18 @@ while True:
   s_n = input("Deseja cadastrar outra despesa? S/N?").upper()
 
   if s_n == "S":
+    new_descricao = input("Informe a descrição da despesa: ")
+    new_categoria = input("Informe a categoria da despesa: ")
+    new_valor = Decimal(input("Informe o valor da despesa: "))
+
+    new_despesa = {
+            "Descrição": descricao,
+            "Categoria": categoria,
+            "Valor": valor
+                  }
+    lista_despesas.append(new_despesa)
+
   elif s_n == "N":
+    break
   else: 
+    print("Digite S ou N")
