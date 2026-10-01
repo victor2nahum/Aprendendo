@@ -4,6 +4,7 @@ from decimal import Decimal
 
 lista_despesas = []
 acumulo = Decimal("0")
+gastos_categoria = {}
 
 while True:
   descricao = input("Informe a descrição da despesa: ")
@@ -37,8 +38,24 @@ for posicao, despesa in enumerate (lista_despesas, start=1):
   print(f"{posicao} - {despesa['Descrição']}  Categoria: {despesa['Categoria']}  Valor: R${despesa['Valor']:.2f}")
   acumulo += despesa["Valor"]
 
+  if despesa["Categoria"] in gastos_categoria:
+    gastos_categoria[despesa["Categoria"]] += despesa['Valor']
+
+  else:
+    gastos_categoria[despesa["Categoria"] = despesa["Valor"]]
+
 print(f"Valor total Acumulado: R$ {acumulo:.2f}")
+limite = Decimal("3000")
+if acumulo > limite:
+  print("Despesas ultrapassaram o limite!")
+else:
+  print("Despesas estão dentro do limite.")
+
 min_despesa = min(lista_despesas, key=lambda x: x["Valor"])
 max_despesa = max(lista_despesas, key=lambda x: x["Valor"])
 print(f"Menor despesa: {min_despesa['Descrição']} - R$ {min_despesa['Valor']:.2f}")
 print(f"Maior despesa: {max_despesa['Descrição']} - R$ {max_despesa['Valor']:.2f}")
+
+
+
+
