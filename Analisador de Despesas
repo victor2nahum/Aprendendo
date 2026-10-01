@@ -3,6 +3,7 @@
 from decimal import Decimal
 
 lista_despesas = []
+acumulo = Decimal("0")
 
 while True:
   descricao = input("Informe a descrição da despesa: ")
@@ -18,19 +19,26 @@ while True:
 
   s_n = input("Deseja cadastrar outra despesa? S/N?").upper()
 
-  if s_n == "S":
-    new_descricao = input("Informe a descrição da despesa: ")
-    new_categoria = input("Informe a categoria da despesa: ")
-    new_valor = Decimal(input("Informe o valor da despesa: "))
-
-    new_despesa = {
-            "Descrição": descricao,
-            "Categoria": categoria,
-            "Valor": valor
-                  }
-    lista_despesas.append(new_despesa)
-
-  elif s_n == "N":
+  if s_n == "N":
     break
+
+  elif s_n == "S":
+    pass
+
+#elif s_n != "S":
+#    print("Digite S ou N")
+# poderia ser isso também no lugar de elif e pass
+
   else: 
     print("Digite S ou N")
+
+print("\n ===== LISTA DE DESPESAS =====")
+for posicao, despesa in enumerate (lista_despesas, start=1):
+  print(f"{posicao} - {despesa['Descrição']}  Categoria: {despesa['Categoria']}  Valor: R${despesa['Valor']:.2f}")
+  acumulo += despesa["Valor"]
+
+print(f"Valor total Acumulado: R$ {acumulo:.2f}")
+min_despesa = min(lista_despesas, key=lambda x: x["Valor"])
+max_despesa = max(lista_despesas, key=lambda x: x["Valor"])
+print(f"Menor despesa: {min_despesa['Descrição']} - R$ {min_despesa['Valor']:.2f}")
+print(f"Maior despesa: {max_despesa['Descrição']} - R$ {max_despesa['Valor']:.2f}")
