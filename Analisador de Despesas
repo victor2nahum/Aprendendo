@@ -1,0 +1,18 @@
+# ANALISADOR DE DESPESAS
+
+from decimal import Decimal
+
+lista_despesas = []
+
+while True:
+  descricao = input("Informe a descrição da despesa: ")
+  categoria = input("Informe a categoria da despesa: ")
+  valor = Decimal(input("Informe o valor da despesa: "))
+
+  despesa = {
+          "Descrição": descricao,
+          "Categoria": categoria,
+          "Valor": valor
+            }
+  lista_despesas.append(despesa)
+
