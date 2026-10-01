@@ -16,3 +16,8 @@ while True:
             }
   lista_despesas.append(despesa)
 
+  s_n = input("Deseja cadastrar outra despesa? S/N?").upper()
+
+  if s_n == "S":
+  elif s_n == "N":
+  else: 
