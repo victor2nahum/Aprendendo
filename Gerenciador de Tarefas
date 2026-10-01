@@ -9,75 +9,97 @@ while True:
   print("3 - Atualizar Status")
   print("4 - Remover Tarefa")
   print("5 - Sair")
-
-  menu = int(input("Digite a opção do menu: "))
-  if menu == 1:
-    add = input("Digite uma tarefa: ")
-    item = {
+  try:
+    menu = int(input("Digite a opção do menu: "))
+    if menu == 1:
+      add = input("Digite uma tarefa: ")
+      item = {
             "Tarefa": add,
             "Status": "Pendente"
-            }
-    tarefas.append(item)
+              }
+      tarefas.append(item)
 
-    while True:
-      confirm = input("Deseja digitar nova tarefa? S/N?").upper()
+      while True:
+        confirm = input("Deseja digitar nova tarefa? S/N?").upper()
 
-      if confirm == "S":
-        add_new = input("Digite outra tarefa: ")
-        item = {
+        if confirm == "S":
+          add_new = input("Digite outra tarefa: ")
+          item = {
                 "Tarefa": add_new,
                 "Status": "Pendente"
-                }
-        tarefas.append(item)
-      elif confirm == "N":
-        break
-      else:
-        print("Digite S ou N")
-
-  elif menu == 2:
-    print("\n ===== LISTA DE TAREFAS =====")
-    for posicao, item in enumerate (tarefas, start=1):
-      print(f"{posicao} - Tarefa: {item['Tarefa']}")
-      print(f"Status: {item['Status']}")
-
-  elif menu == 3:
-    print("\n ===== ATUALIZAR STATUS =====")
-    for posicao, item in enumerate (tarefas, start=1):
-      print(f"{posicao} - Tarefa: {item['Tarefa']}")
-      print(f"Status: {item['Status']}")
-
-    while True:
-      try:
-        op = int(input("Escolha o número da tarefa que quer atualizar: "))
-        indice = op - 1
-
-        if indice < 0:
-          print("Erro: digite um número do índice")
-
-        elif indice > (len(tarefas)-1):
-          print("Erro: digite um número do índice")
-
-        else:
-          item_escolhido = tarefas[indice]
-          print(f"Você escolheu: {item_escolhido['Tarefa']}")
-          new_status = "Concluído"
-          item_escolhido["Status"] = new_status
-          print("Alteração cadastrada")
+                  }
+          tarefas.append(item)
+        elif confirm == "N":
           break
+        else:
+          print("Digite S ou N")
 
-      except ValueError:
-       print("Erro: Digite um número válido")
+    elif menu == 2:
+      print("\n ===== LISTA DE TAREFAS =====")
+      for posicao, item in enumerate (tarefas, start=1):
+        print(f"{posicao} - Tarefa: {item['Tarefa']}")
+        print(f"Status: {item['Status']}")
 
-      
+    elif menu == 3:
+      print("\n ===== ATUALIZAR STATUS =====")
+      for posicao, item in enumerate (tarefas, start=1):
+        print(f"{posicao} - Tarefa: {item['Tarefa']}")
+        print(f"Status: {item['Status']}")
 
+      while True:
+        try:
+          op = int(input("Escolha o número da tarefa que quer atualizar: "))
+          indice = op - 1
 
+          if indice < 0:
+            print("Erro: digite um número do índice")
 
-  elif menu == 4:
+          elif indice > (len(tarefas)-1):
+            print("Erro: digite um número do índice")
 
-  elif menu == 5:
+          else:
+            item_escolhido = tarefas[indice]
+            print(f"Você escolheu: {item_escolhido['Tarefa']}")
+            new_status = "Concluído"
+            item_escolhido["Status"] = new_status
+            print("Alteração cadastrada")
+            break
 
-  else:
+        except ValueError:
+         print("Erro: Digite um número válido")
+
+    elif menu == 4:
+      print("\n ===== REMOVER TAREFA =====")
+      for posicao, item in enumerate (tarefas, start=1):
+        print(f"{posicao} - Tarefa: {item['Tarefa']}")
+        print(f"Status: {item['Status']}")
+  
+      while True:
+        try:
+          op = int(input("Escolha o número da tarefa que quer remover: "))
+          indice = op - 1
+
+          if indice < 0:
+            print("Erro: digite um número do índice")
+  
+          elif indice > (len(tarefas)-1):
+            print("Erro: digite um número do índice")
+  
+          else:
+            item_remover = tarefas[indice]
+            print(f"Você escolheu: {item_remover['Tarefa']}")
+            tarefas.remove(item_remover)
+            print("Tarefa removida com sucesso")
+            break
+    
+
+    elif menu == 5:
+
+      print("Programa encerrado")
+      break
+
+    else:
+      print("Digite uma opção válida")
+
+  except ValueError:
     print("Digite uma opção válida")
-
-except ValueError:
-  print("Digite um número válido )
