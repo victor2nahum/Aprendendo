@@ -1,10 +1,59 @@
 # ANALISADOR DE DESPESAS
 
+# ----------- FUNÇÕES ---------------
+def calculo_total(lista_despesas):
+
+  acumulo = Decimal("0")
+
+  for despesa in lista_despesas:
+    acumulo += despesa["Valor"]
+
+  return acumulo
+#-------------------------
+def soma_por_categoria(lista_despesas):
+
+  gastos_categoria = {}
+
+  for despesa in lista_despesas:
+
+    if despesa["Categoria"] in gastos_categoria:
+      gastos_categoria[despesa["Categoria"]] += despesa['Valor']
+
+    else:
+      gastos_categoria[despesa["Categoria"]] = despesa["Valor"]
+
+  return gastos_categoria
+#-------------------------
+def individual_min_max(lista_despesas):
+
+  min_despesa = min(lista_despesas, key=lambda x: x["Valor"])
+  max_despesa = max(lista_despesas, key=lambda x: x["Valor"])
+
+  return min_despesa, max_despesa
+#-------------------------
+def categoria_min_max(gastos_categoria):
+
+  min_gasto = min(gastos_categoria, key=gastos_categoria.get)
+  max_gasto = max(gastos_categoria, key=gastos_categoria.get)
+
+  return min_gasto, max_gasto
+#-------------------------
+def percentual_maior_gasto(gastos_categoria, acumulo):
+
+  max_gasto = max(gastos_categoria, key=gastos_categoria.get)
+  percentual_maior_gasto = 100*(gastos_categoria[max_gasto]/acumulo)
+
+  if percentual_maior_gasto > 50:
+    x = True
+  else:
+    x = False
+
+  return percentual, alerta
+
+# ----------- CÓDIGO ---------------
 from decimal import Decimal
 
 lista_despesas = []
-acumulo = Decimal("0")
-gastos_categoria = {}
 
 while True:
   descricao = input("Informe a descrição da despesa: ")
@@ -33,29 +82,50 @@ while True:
   else: 
     print("Digite S ou N")
 
+# -------- Lista de despesas ----------
 print("\n ===== LISTA DE DESPESAS =====")
 for posicao, despesa in enumerate (lista_despesas, start=1):
   print(f"{posicao} - {despesa['Descrição']}  Categoria: {despesa['Categoria']}  Valor: R${despesa['Valor']:.2f}")
-  acumulo += despesa["Valor"]
 
-  if despesa["Categoria"] in gastos_categoria:
-    gastos_categoria[despesa["Categoria"]] += despesa['Valor']
+# --------- Soma de despesas por categoria -----------
+print("\n ===== Despesas por Categoria =====")
+gastos_categoria = soma_por_categoria(lista_despesas)
+for gasto in gastos_categoria:
+  print(f"{gasto}: R$ {gastos_categoria[gasto]:.2f}")
 
-  else:
-    gastos_categoria[despesa["Categoria"] = despesa["Valor"]]
+# --------- Cálculo de total de despesas ----------
+print("\n ===== Total de despesas =====")
+resultado = calculo_total(lista_despesas)
+print(f"Valor total Acumulado: R$ {resultado:.2f}")
 
-print(f"Valor total Acumulado: R$ {acumulo:.2f}")
+# --------- Limite de despesas individual ---------
 limite = Decimal("3000")
 if acumulo > limite:
   print("Despesas ultrapassaram o limite!")
 else:
   print("Despesas estão dentro do limite.")
 
-min_despesa = min(lista_despesas, key=lambda x: x["Valor"])
-max_despesa = max(lista_despesas, key=lambda x: x["Valor"])
+# ---------- Mínima e máxima despesa individual ----------
+min_despesa, max_despesa = individual_min_max(lista_despesas)
 print(f"Menor despesa: {min_despesa['Descrição']} - R$ {min_despesa['Valor']:.2f}")
 print(f"Maior despesa: {max_despesa['Descrição']} - R$ {max_despesa['Valor']:.2f}")
 
 
+# ---------- Gasto por categoria ----------
+print("\n ===== GASTO POR CATEGORIA =====")
+for gasto in gastos_categoria:
+  print(f"{gasto} - R$ {gastos_categoria[gasto]:.2f}")
 
+# ---------- Mínimo e máximo gasto por categoria ----------
+min_gasto, max_gasto = categoria_min_max(gastos_categoria)
+print(f"Menor gasto por categoria: {min_gasto} - R$ {gastos_categoria[min_gasto]:.2f}")
+print(f"Maior gasto por categoria: {max_gasto} - R$ {gastos_categoria[max_gasto]:.2f}")
 
+# ---------- Percentual de gastos e alerta -------------
+percentual, alerta = percentual_maior_gasto(gastos_categoria, acumulo)
+print(f" Total Gasto: {acumulo:.2f}\n Maior categoria: {max_gasto}\n Gasto em {max_gasto}: {gastos_categoria[max_gasto]:.2f}\n {max_gasto} representa {percentual:.2f}% das despesas")
+
+if alerta:
+  print("Atenção: Categoria representa mais da metade dos seus gastos")
+else:
+  print("Os gastos estão distribuidos entre as categorias")
