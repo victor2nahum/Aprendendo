@@ -1,5 +1,7 @@
 # ANALISADOR DE DESPESAS
 
+from decimal import Decimal
+
 # ----------- FUNÇÕES ---------------
 def calculo_total(lista_despesas):
 
@@ -9,6 +11,25 @@ def calculo_total(lista_despesas):
     acumulo += despesa["Valor"]
 
   return acumulo
+#-------------------------
+def cadastrar_despesa():
+
+ descricao = input("Informe a descrição da despesa: ")
+ categoria = input("Informe a categoria da despesa: ")
+
+ while True:
+  try:
+    valor = Decimal(input("Informe o valor da despesa: "))
+    break
+  except ValueError:
+    print("Digite um valor válido")
+
+ despesa = {
+          "Descrição": descricao,
+          "Categoria": categoria,
+          "Valor": valor
+            }  
+ return despesa
 #-------------------------
 def soma_por_categoria(lista_despesas):
 
@@ -41,31 +62,22 @@ def categoria_min_max(gastos_categoria):
 def percentual_maior_gasto(gastos_categoria, acumulo):
 
   max_gasto = max(gastos_categoria, key=gastos_categoria.get)
-  percentual_maior_gasto = 100*(gastos_categoria[max_gasto]/acumulo)
+  percentual = 100*(gastos_categoria[max_gasto]/acumulo)
 
-  if percentual_maior_gasto > 50:
-    x = True
+  if percentual > 50:
+    alerta = True
   else:
-    x = False
+    alerta = False
 
   return percentual, alerta
 
 # ----------- CÓDIGO ---------------
-from decimal import Decimal
 
 lista_despesas = []
 
 while True:
-  descricao = input("Informe a descrição da despesa: ")
-  categoria = input("Informe a categoria da despesa: ")
-  valor = Decimal(input("Informe o valor da despesa: "))
-
-  despesa = {
-          "Descrição": descricao,
-          "Categoria": categoria,
-          "Valor": valor
-            }
-  lista_despesas.append(despesa)
+  cadastro = cadastrar_despesa()
+  lista_despesas.append(cadastro)
 
   s_n = input("Deseja cadastrar outra despesa? S/N?").upper()
 
@@ -100,7 +112,7 @@ print(f"Valor total Acumulado: R$ {resultado:.2f}")
 
 # --------- Limite de despesas individual ---------
 limite = Decimal("3000")
-if acumulo > limite:
+if resultado > limite:
   print("Despesas ultrapassaram o limite!")
 else:
   print("Despesas estão dentro do limite.")
@@ -122,8 +134,8 @@ print(f"Menor gasto por categoria: {min_gasto} - R$ {gastos_categoria[min_gasto]
 print(f"Maior gasto por categoria: {max_gasto} - R$ {gastos_categoria[max_gasto]:.2f}")
 
 # ---------- Percentual de gastos e alerta -------------
-percentual, alerta = percentual_maior_gasto(gastos_categoria, acumulo)
-print(f" Total Gasto: {acumulo:.2f}\n Maior categoria: {max_gasto}\n Gasto em {max_gasto}: {gastos_categoria[max_gasto]:.2f}\n {max_gasto} representa {percentual:.2f}% das despesas")
+percentual, alerta = percentual_maior_gasto(gastos_categoria, resultado)
+print(f" Total Gasto: {resultado:.2f}\n Maior categoria: {max_gasto}\n Gasto em {max_gasto}: {gastos_categoria[max_gasto]:.2f}\n {max_gasto} representa {percentual:.2f}% das despesas")
 
 if alerta:
   print("Atenção: Categoria representa mais da metade dos seus gastos")
