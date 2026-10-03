@@ -1,0 +1,16 @@
+# Organizador de Arquivos
+
+from pathlib import Path
+  #importa Path que é uma ferramenta de caminho para pastas e arquivos dentro do computador
+
+caminho = Path(input("Digite o caminho da pasta: "))
+  #pega o input e transforma em um caminho
+
+if caminho.exists():
+and if not caminho.is_dir():
+  print("Pasta existe")
+elif caminho.is_dir():
+  print("É um arquivo, não uma pasta")
+else:
+  print("Pasta não existe")
+  #.exists é uma função que verifica se caminho é válido/real ou não DE UMA PASTA. Retorna bool (True/False)
