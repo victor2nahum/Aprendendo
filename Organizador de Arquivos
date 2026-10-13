@@ -6,11 +6,23 @@ from pathlib import Path
 caminho = Path(input("Digite o caminho da pasta: "))
   #pega o input e transforma em um caminho
 
-if caminho.exists():
-and if not caminho.is_dir():
+if caminho.exists() and caminho.is_dir():
   print("Pasta existe")
-elif caminho.is_dir():
+  print("-"*10, {}, "-"*10.format("Itens dentro da pasta"))
+  
+  for item in caminho.iterdir():
+    if item.is_dir():
+      print(f"Pasta: {item.name}")
+    else:
+      print(f"Arquivo: {item.name}\n Extensão: {item.suffix}")
+
+    if item.is_file() and item.suffix == ".pdf":
+        
+        
+    
+elif caminho.exists() and not caminho.is_dir():
   print("É um arquivo, não uma pasta")
 else:
   print("Pasta não existe")
-  #.exists é uma função que verifica se caminho é válido/real ou não DE UMA PASTA. Retorna bool (True/False)
+  #.exists é uma função que verifica se caminho é válido/real ou não. Retorna bool (True/False)
+  #.is_dir é uma função que verifica se o caminho leva a uma pasta. Retorna bool (T/F)
