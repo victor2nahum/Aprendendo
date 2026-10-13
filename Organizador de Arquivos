@@ -2,27 +2,50 @@
 
 from pathlib import Path
   #importa Path que é uma ferramenta de caminho para pastas e arquivos dentro do computador
-
+from shutil import move
+  
 caminho = Path(input("Digite o caminho da pasta: "))
   #pega o input e transforma em um caminho
 
 if caminho.exists() and caminho.is_dir():
   print("Pasta existe")
-  print("-"*10, {}, "-"*10.format("Itens dentro da pasta"))
-  
+  selec = input("Digite a extensão, com ponto, que deseja selecionar: ").lower()
+
+  print(f"{'-'*10} Itens dentro da pasta {'-'*10}")
   for item in caminho.iterdir():
     if item.is_dir():
       print(f"Pasta: {item.name}")
     else:
       print(f"Arquivo: {item.name}\n Extensão: {item.suffix}")
 
-    if item.is_file() and item.suffix == ".pdf":
-        
-        
+  print("Arquivos do tipo {}".format(selec))
+  for item in caminho.iterdir():
+    if item.is_file() and item.suffix.lower() == selec:
+        print(item.name)
+
+  nome_pasta = selec.lstrip(".").upper() + "s"
+  nova_pasta = caminho / nome_pasta
+  tem_arquivos = any(item.suffix.lower() == selec and item.is_file() for item in caminho.iterdir())
+
+  if not tem_arquivos:
+    print("Não existem arquivos com esta extensão")
+
+  elif nova_pasta.exists():
+    print("Pasta já existe")
+
+  else:
+    nova_pasta.mkdir(exist_ok=True)
+    print("Pasta criada")
+    for item in caminho.iterdir():
+      if item.is_file() and item.suffix.lower() == selec:
+        move(item, nova_pasta)
+  
     
 elif caminho.exists() and not caminho.is_dir():
   print("É um arquivo, não uma pasta")
+
 else:
   print("Pasta não existe")
   #.exists é uma função que verifica se caminho é válido/real ou não. Retorna bool (True/False)
   #.is_dir é uma função que verifica se o caminho leva a uma pasta. Retorna bool (T/F)
+
