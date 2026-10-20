@@ -1,0 +1,26 @@
+# Pesquisa de produtos na internet
+
+pip install requests
+
+import requests
+import os
+
+api_key = input("Digite sua API Key: ")
+
+url = "https://serpapi.com/search.json"
+
+parametros = {
+    "engine": "google_shopping",
+    "q": "ar condicionado Daikin 12000 BTUs",
+    "gl": "br",
+    "hl": "pt-br",
+    "api_key": api_key
+}
+
+resposta = requests.get(url, params=parametros, timeout=30)
+
+print("Status da resposta:", resposta.status_code)
+
+dados = resposta.json()
+
+print(dados.keys())
