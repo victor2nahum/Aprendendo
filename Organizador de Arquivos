@@ -30,12 +30,13 @@ if caminho.exists() and caminho.is_dir():
   if not tem_arquivos:
     print("Não existem arquivos com esta extensão")
 
-  elif nova_pasta.exists():
-    print("Pasta já existe")
-
   else:
-    nova_pasta.mkdir(exist_ok=True)
-    print("Pasta criada")
+    if nova_pasta.exists():
+      print("Pasta já existe")
+    else:
+      nova_pasta.mkdir(exist_ok=True)
+      print("Pasta criada")
+
     for item in caminho.iterdir():
       if item.is_file() and item.suffix.lower() == selec:
         move(item, nova_pasta)
